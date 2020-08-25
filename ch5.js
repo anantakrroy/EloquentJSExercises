@@ -26,3 +26,43 @@ function everyUsingSome(arr, cb) {
     return cbArr.indexOf(false) === -1 ? true : false;  
 }
 
+// Find the dominant script direction in a given text
+function dominantDirection(text) {
+	let scripts = countBy(text, ch => {
+		let code = ch.codePointAt(0);
+		let script = characterScript(code);
+		return script ? script.direction : "none";
+	}).filter(({propName}) => propName != "none");
+	let total = scripts.reduce((acc,curr) => acc + curr.count,0);
+	if(total === 0) return "No scripts found !";
+	let result = scripts.reduce((a, b) => {return a.count > b.count ? a.propName : b.propName});
+	return result;
+}
+
+function countBy(items, groupDir) {
+	let counts = [];
+	for(let item of items) {
+		let propName = groupDir(item);
+		let found = counts.findIndex(el => el.propName == propName);
+		if(found === -1) {
+			counts.push({propName, count : 1});
+		} else {
+			counts[found].count++;
+		}
+	}
+	return counts;
+}
+
+function characterScript(code) {
+	for(let script of SCRIPTS) {
+		if(script.ranges.some(([from, to]) => {
+			return code >= from && code < to;
+		})) {
+			console.log(`Character with code ${code} has script direction ${script.direction}`)
+			return script;
+		}
+	}
+	return null;
+}
+
+dominantDirection('英国的狗说"woof"');
