@@ -1,8 +1,7 @@
-function loop(val, test, update, body) {
+function loop(val, test, body,update) {
+	for()
 	if(test(val)) {
 		body(val);
-	} else {
-		return false;
 	}
-	update
+	update();
 }
