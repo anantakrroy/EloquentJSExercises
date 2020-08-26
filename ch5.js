@@ -6,6 +6,14 @@ function flattenArr(arr) {
 
 flattenArr([[1,2,3],[5,6,7]]);
 
+// higher-order function loop that provides something like a for loop statement. It takes a value, a test function, an update function, and a body function
+
+function loop(currVal, test, update, body) {
+	for(let val = currVal;test(val);update(val)) {
+		body(val);
+	}
+}
+
 // Implement "every" array method using Loop
 function every(arr, callback) {
     for(let el of arr) {
@@ -35,8 +43,8 @@ function dominantDirection(text) {
 	}).filter(({propName}) => propName != "none");
 	let total = scripts.reduce((acc,curr) => acc + curr.count,0);
 	if(total === 0) return "No scripts found !";
-	let result = scripts.reduce((a, b) => {return a.count > b.count ? a.propName : b.propName});
-	return result;
+	let result = scripts.reduce((a, b) => {return a.count > b.count ? a : b});
+	return `Dominant direction in the given text: ${result.propName}`;
 }
 
 function countBy(items, groupDir) {

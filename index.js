@@ -1124,8 +1124,8 @@ function dominantDirection(text) {
 	}).filter(({propName}) => propName != "none");
 	let total = scripts.reduce((acc,curr) => acc + curr.count,0);
 	if(total === 0) return "No scripts found !";
-	let result = scripts.reduce((a, b) => {return a.count > b.count ? a.propName : b.propName});
-	return result;
+	let result = scripts.reduce((a, b) => {return a.count > b.count ? a : b});
+	return `Dominant direction in the given text: ${result.propName}`;
 }
 
 function countBy(items, groupDir) {
@@ -1154,4 +1154,4 @@ function characterScript(code) {
 	return null;
 }
 
-dominantDirection('英国的狗说"woof"');
+dominantDirection('英国的狗说"woof"هذا نص عربي ، دعنا نرى ما إذاكان الكود يعمل؟');
