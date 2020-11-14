@@ -66,7 +66,6 @@ function characterScript(code) {
 		if(script.ranges.some(([from, to]) => {
 			return code >= from && code < to;
 		})) {
-			console.log(`Character with code ${code} has script direction ${script.direction}`)
 			return script;
 		}
 	}
